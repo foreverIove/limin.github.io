@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #bfa;
+            height: 1000px;
+            /* 禁止双击选中文字 */
+            user-select:none;
+            
+        }
+       
+ 
+    </style>
+</head>
+<body >
+    <script>
+        var a = document.getElementById('a')
+        var arr = ['❤点个红心呀', '❤记得收藏哦', '❤呀'];
+        var i = 0;
+        document.documentElement.onclick = function (e) {
+            // 获取鼠标点击所在坐标
+            var x = e.pageX, y = e.pageY;
+            // 创建一个元素并将数组中的值随着点击的次数不断改变
+            var a=document.createElement('div')
+            a.innerHTML=`${arr[i]}`
+            document.body.append(a)
+            // 创建新元素设置绝对定位定位，使元素在点击时会创建在鼠标指针处
+            a.style.position='absolute'
+            a.style.left=x+"px";
+            a.style.top=y+"px";
+            i = (i + 1) % arr.length
+            // 设置随机颜色，使用es6新语法``
+            a.style.color = `rgb(${255 * Math.random()},${255 * Math.random()},${255 * Math.random()} )`
+            a.animate({
+                "top": y -180+'px',
+                "opacity": 0
+            }, 1500)
+            // 由于原生js中的animate没有回调函数只能写个计时器来删除
+            setTimeout(()=>{
+                a.parentNode.removeChild(a)
+            },1000) 
+            
+        }
+    </script>
+</body>
+
+</html>
